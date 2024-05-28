@@ -2,7 +2,7 @@
  A simple data logger for DCS world, in a header only configuration.
 
 # Install
-Add the "DCS-Logger.hpp" header to your project include directory. This is where your other .h or .hpp files would go. In Visual Studio, toggle the option to "view all files". Find the file in the list, and right click -> Add to project
+Add the "DCS-Logger.hpp" header to your project include directory. This is where your other .h or .hpp files would go. In Visual Studio, toggle the option to "view all files". Find the file in the list, and right click -> Include in Project
 
 # Usage
 I recommend using "ed_fm_set_plugin_data_install_path" to get the path you want to Log files to, otherwise you must provide a path to where you want logs output yourself. 
