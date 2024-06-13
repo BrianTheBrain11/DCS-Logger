@@ -47,3 +47,6 @@ void ed_fm_simulate(double dt)
     Aircraft::logger.EndFrame();
 }
 ```
+
+
+Currently taking feature requests / suggestions, etc. message me on discord at BrianTheBrain or submit an issue here
