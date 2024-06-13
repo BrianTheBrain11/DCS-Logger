@@ -22,3 +22,28 @@ And to clear resources you must use Logger::Close() on simulation close in order
 A common error occurs when using the delta time version of the logger. a double is not accurate enough to obtain good graph results, hence it is suggested to use the default mode of the logger.
 
 Another common error occurs when the path you are pointing to has folders that don't exist. You must create the folder you want the output path to be. Otherwise, you will get an exception and it will not log.
+
+# Simple Example
+in main EFM file:
+```cpp
+void fm_initialize()
+{
+...
+    Aircraft::logger = Logger("C:\Users\User\SavedGames\DCS\Mods\Aircraft\Aircraft\Logs", std::vector<std::string> { "AoA", "TAS", "IAS" });
+...
+}
+
+void ed_fm_simulate(double dt)
+{
+// start of method
+    Aircraft::logger.BeginFrame(true);
+// do your fm simulation
+...
+    Aircraft::logger.addToLogger(Aircraft::AoA);
+    Aircraft::logger.addToLogger(Aircraft::TAS);
+    Aircraft::logger.addToLogger(Aircraft::IAS);
+// wrap anything up/end method with
+...
+    Aircraft::logger.EndFrame();
+}
+```
