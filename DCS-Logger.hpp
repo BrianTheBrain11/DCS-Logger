@@ -39,7 +39,7 @@ private:
     char delimiter;
 };
 
-Logger::Logger(std::string fileName, std::vector<std::string> namesList, bool msMode_, int frequency_)
+inline Logger::Logger(std::string fileName, std::vector<std::string> namesList, bool msMode_, int frequency_)
 {
 	offFrame = false;
 	
@@ -84,7 +84,7 @@ Logger::Logger(std::string fileName, std::vector<std::string> namesList, bool ms
 	frames = 0;
 }
 
-void Logger::BeginFrame(double dt, bool logginOnOff)
+inline void Logger::BeginFrame(double dt, bool logginOnOff)
 {
 	offFrame = true;
 
@@ -108,7 +108,7 @@ void Logger::BeginFrame(double dt, bool logginOnOff)
 	fout << frames << ", ";
 }
 
-void Logger::BeginFrame(bool loggingOnOff)
+inline void Logger::BeginFrame(bool loggingOnOff)
 {
 	offFrame = true;
 	frames++;
@@ -127,43 +127,43 @@ void Logger::BeginFrame(bool loggingOnOff)
 	}
 	fout << frames << ", ";
 }
-
-void Logger::AddToLogger(int addToLoggerInt)
+ 
+inline void Logger::AddToLogger(int addToLoggerInt)
 {
     if (!onoff || offFrame) return;
     fout << addToLoggerInt << this->delimiter << " ";
 }
-
-void Logger::AddToLogger(double addToLoggerDouble)
+ 
+inline void Logger::AddToLogger(double addToLoggerDouble)
 {
 	if (!onoff || offFrame) return;
 	fout << addToLoggerDouble << this->delimiter << " ";
 }
-
-void Logger::AddToLogger(std::string addToLoggerString)
+ 
+inline void Logger::AddToLogger(std::string addToLoggerString)
 {
 	if (!onoff || offFrame) return;
 	fout << addToLoggerString << ", ";
 }
-
-void Logger::AddToLogger(bool addToLoggerBool)
+ 
+inline void Logger::AddToLogger(bool addToLoggerBool)
 {
 	if (!onoff || offFrame) return;
 	fout << addToLoggerBool << ", ";
 }
-
-void Logger::SetCustomDelimiter(char delimiter_)
+ 
+inline void Logger::SetCustomDelimiter(char delimiter_)
 {
     this->delimiter = delimiter_;
 }
-
-void Logger::EndFrame()
+ 
+inline void Logger::EndFrame()
 {
 	if (!onoff || offFrame) return;
 	fout << "\n";
 }
-
-void Logger::Close()
+ 
+inline void Logger::Close()
 {
 	if (fout.is_open()) fout.close();
 }
