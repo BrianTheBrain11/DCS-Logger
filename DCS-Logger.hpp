@@ -21,8 +21,8 @@ public:
 
     void Logger::SetCustomDelimiter(char newDelimiter); // Set a custom value delimiter
 
-	void Logger::BeginFrame(double dt, bool loggingOnOff); // loggingOnOff : false off, true on
-	void Logger::BeginFrame(bool loggingOnOff); // Initialize the frame this way for normal procedure, unless at very low framerate
+	void Logger::BeginFrame(double dt, bool loggingOnOff = true); // loggingOnOff : false off, true on
+	void Logger::BeginFrame(bool loggingOnOff = true); // Initialize the frame this way for normal procedure, unless at very low framerate
 	void Logger::EndFrame(); // End the frame
 	void Logger::Close(); // Close the logger and free resources
 
@@ -42,6 +42,7 @@ private:
 inline Logger::Logger(std::string fileName, std::vector<std::string> namesList, bool msMode_, int frequency_)
 {
 	offFrame = false;
+	this->delimiter = ',';
 	
 	time_t     now = time(0);
 	struct tm  tstruct;
@@ -72,12 +73,12 @@ inline Logger::Logger(std::string fileName, std::vector<std::string> namesList, 
 	this->msMode = msMode_;
 	if (this->msMode) startTime = std::chrono::steady_clock::now();
 
-	fout << "Time, ";
-	fout << "Frames, ";
+	fout << "Time" << this->delimiter;
+	fout << "Frames" << this->delimiter;
 
 	for (int i = 0; i < this->namesList.size(); i++)
 	{
-		fout << namesList[i] << ", ";
+		fout << namesList[i] << this->delimiter;
 	}
 	fout << "\n";
 
@@ -99,13 +100,13 @@ inline void Logger::BeginFrame(double dt, bool logginOnOff)
 
 	if (this->msMode)
 	{
-		fout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->startTime).count() / 1000.0 << ", ";
+		fout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->startTime).count() / 1000.0 << this->delimiter;
 	}
 	else
 	{
-		fout << totalTime << ", ";
+		fout << totalTime << this->delimiter;
 	}
-	fout << frames << ", ";
+	fout << frames << this->delimiter;
 }
 
 inline void Logger::BeginFrame(bool loggingOnOff)
@@ -123,33 +124,33 @@ inline void Logger::BeginFrame(bool loggingOnOff)
 
 	if (this->msMode)
 	{
-		fout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->startTime).count() / 1000.0 << ", ";
+		fout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->startTime).count() / 1000.0 << this->delimiter;
 	}
-	fout << frames << ", ";
+	fout << frames << this->delimiter;
 }
  
 inline void Logger::AddToLogger(int addToLoggerInt)
 {
     if (!onoff || offFrame) return;
-    fout << addToLoggerInt << this->delimiter << " ";
+    fout << addToLoggerInt << this->delimiter;
 }
  
 inline void Logger::AddToLogger(double addToLoggerDouble)
 {
 	if (!onoff || offFrame) return;
-	fout << addToLoggerDouble << this->delimiter << " ";
+	fout << addToLoggerDouble << this->delimiter;
 }
  
 inline void Logger::AddToLogger(std::string addToLoggerString)
 {
 	if (!onoff || offFrame) return;
-	fout << addToLoggerString << ", ";
+	fout << addToLoggerString << this->delimiter;
 }
  
 inline void Logger::AddToLogger(bool addToLoggerBool)
 {
 	if (!onoff || offFrame) return;
-	fout << addToLoggerBool << ", ";
+	fout << addToLoggerBool << this->delimiter;
 }
  
 inline void Logger::SetCustomDelimiter(char delimiter_)
