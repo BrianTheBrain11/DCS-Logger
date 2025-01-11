@@ -11,20 +11,20 @@
 class Logger
 {
 public:
-	Logger::Logger() : totalTime(0.0), frequency(1.0){};
-	Logger::Logger(std::string logLocation, std::vector<std::string>, bool msMode_ = false, int frequency = 1); // logLocation is full file path of log
+	Logger() : totalTime(0.0), frequency(1.0){};
+	Logger(std::string logLocation, std::vector<std::string>, bool msMode_ = false, int frequency = 1); // logLocation is full file path of log
 	
-    void Logger::AddToLogger(int addToLoggerInt); // Log a value of type int
-    void Logger::AddToLogger(double addToLoggerDouble); // Log a value of type double
-	void Logger::AddToLogger(std::string addToLoggerString); // Log a value of type std::string
-	void Logger::AddToLogger(bool addToLoggerBool); // Log a value of type bool
+    void AddToLogger(int addToLoggerInt); // Log a value of type int
+    void AddToLogger(double addToLoggerDouble); // Log a value of type double
+	void AddToLogger(std::string addToLoggerString); // Log a value of type std::string
+	void AddToLogger(bool addToLoggerBool); // Log a value of type bool
 
-    void Logger::SetCustomDelimiter(char newDelimiter); // Set a custom value delimiter
+    void SetCustomDelimiter(char newDelimiter); // Set a custom value delimiter
 
-	void Logger::BeginFrame(double dt, bool loggingOnOff = true); // loggingOnOff : false off, true on
-	void Logger::BeginFrame(bool loggingOnOff = true); // Initialize the frame this way for normal procedure, unless at very low framerate
-	void Logger::EndFrame(); // End the frame
-	void Logger::Close(); // Close the logger and free resources
+	void BeginFrame(double dt, bool loggingOnOff = true); // loggingOnOff : false off, true on
+	void BeginFrame(bool loggingOnOff = true); // Initialize the frame this way for normal procedure, unless at very low framerate
+	void EndFrame(); // End the frame
+	void Close(); // Close the logger and free resources
 
 private:
 	double totalTime;
